@@ -91,10 +91,16 @@ def edit():
     book_selected = Book.query.get(book_id)
     return render_template("editrating.html", book=book_selected)
 
-@app.route("/del", methods=['POST', 'GET']))
+@app.route("/del")
 def delete():
-    if request.method == "POST":
-        
+    #passing an arg along with a href you need requests.args.get to fetch the arg. dumbass. not request.form, it's not a damn form!
+    book_id = request.args.get("id")
+    book_to_delete = Book.query.get(book_id)
+    db.session.delete(book_to_delete)
+    db.session.commit()
+    return redirect(url_for("home"))
+
+
 
 
 
