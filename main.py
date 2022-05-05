@@ -63,7 +63,8 @@ db.session.commit()
 
 @app.route('/')
 def home():
-    return render_template("index.html")
+    all_books = db.session.query(Book).all()
+    return render_template("index.html", all_books=all_books)
 
 
 
@@ -76,7 +77,6 @@ def add():
         db.session.commit()
     return render_template("add.html")
 
-all_books = Book.query.filter_by("id")
 
 if __name__ == "__main__":
     app.run(debug=True)
